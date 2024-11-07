@@ -151,32 +151,32 @@ export default function FactChecker() {
           </div>
         )}
 
-{factCheckResults.length > 0 && (
-  <div className="mt-20 w-full bg-white p-4 border outline-none resize-none min-h-[200px] overflow-auto rounded opacity-0 animate-fade-up [animation-delay:200ms]">
-    {factCheckResults.map((result, index) => (
-      <div key={index} className="mb-4">
-        <h3 className="font-semibold">Claim: {result.claim}</h3>
-        <p>Assessment: {result.assessment}</p>
-        <p>Summary: {result.summary}</p>
-        <p>Confidence Score: {result.confidence_score}</p>
-        <p>Sources:</p>
-        <ul>
-          {result.sources && result.sources.length > 0 ? (
-            result.sources.map((source: string, idx: number) => (
-              <li key={idx}>
-                <a href={source} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                  {source}
-                </a>
-              </li>
-            ))
-          ) : (
-            <li>No sources available</li>
-          )}
-        </ul>
-      </div>
-    ))}
-  </div>
-)}
+        {factCheckResults.length > 0 && (
+        <div className="mt-20 w-full bg-white p-4 border outline-none resize-none min-h-[200px] overflow-auto rounded opacity-0 animate-fade-up [animation-delay:200ms]">
+            {factCheckResults.map((result, index) => (
+            <div key={index} className="mb-4">
+                <h3 className="font-semibold">Claim: {result.claim}</h3>
+                <p>Assessment: {result.assessment}</p>
+                <p>Summary: {result.summary}</p>
+                <p>Confidence Score: {result.confidence_score}</p>
+                {/* <p>Sources:</p>
+                <ul>
+                {result.sources && result.sources.length > 0 ? (
+                    result.sources.map((source: string, idx: number) => (
+                    <li key={idx}>
+                        <a href={source} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                        {source}
+                        </a>
+                    </li>
+                    ))
+                ) : (
+                    <li>No sources available</li>
+                )}
+                </ul> */}
+            </div>
+            ))}
+        </div>
+        )}
 
 
 
