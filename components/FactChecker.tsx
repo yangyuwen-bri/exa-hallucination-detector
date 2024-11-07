@@ -9,7 +9,27 @@ export default function FactChecker() {
   const [articleContent, setArticleContent] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = async (e: FormEvent) => {
+  // Separate function to call the extract claims API
+  const extractClaims = async (content: string) => {
+    const response = await fetch('/api/extractclaims', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to extract claims.');
+    }
+
+    const data = await response.json();
+    return data.claims;
+  };
+
+  // Updated factCheck function
+  const factCheck = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!articleContent) {
@@ -21,26 +41,8 @@ export default function FactChecker() {
     setError(null);
 
     try {
-      const response = await fetch('/api/exa', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content: articleContent }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to fetch fact-check result.');
-      }
-
-      const data = await response.json();
-
-      if (data.factCheckResult) {
-        setFactCheckResult(data.factCheckResult);
-      } else {
-        setError("No fact-checking information found.");
-      }
+      const claims = await extractClaims(articleContent);
+      setFactCheckResult(claims || "No claims found.");
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
       setFactCheckResult('');
@@ -64,8 +66,7 @@ export default function FactChecker() {
         </p>
        </div>
 
-
-        <form onSubmit={handleSearch} className="space-y-6 w-full">
+        <form onSubmit={factCheck} className="space-y-6 w-full">
           <textarea
             value={articleContent}
             onChange={(e) => setArticleContent(e.target.value)}
