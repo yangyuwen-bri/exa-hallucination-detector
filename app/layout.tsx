@@ -1,8 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// Load the ABCDiatype font (Regular and Bold only)
+const abcdDiatype = localFont({
+  src: [
+    { path: "./fonts/ABCDiatype-Regular.otf", weight: "400" },
+    { path: "./fonts/ABCDiatype-Bold.otf", weight: "700" },
+  ],
+  variable: "--font-abcd-diatype",
+});
+
+// Load the Reckless font (Regular and Medium only)
+const reckless = localFont({
+  src: [
+    { path: "./fonts/RecklessTRIAL-Regular.woff2", weight: "400" },
+    { path: "./fonts/RecklessTRIAL-Medium.woff2", weight: "500" },
+  ],
+  variable: "--font-reckless",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${abcdDiatype.variable} ${reckless.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
