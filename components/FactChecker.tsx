@@ -50,22 +50,28 @@ export default function FactChecker() {
 
   // Function to call the verifyclaims API for an individual claim and sources
   const verifyClaim = async (claim: string, exasources: any) => {
+    const formattedSources = JSON.stringify(exasources);
+  
+    console.log("Calling verifyClaim with formatted sources:", formattedSources);
+  
     const response = await fetch('/api/verifyclaims', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ claim, exasources }),
+      body: JSON.stringify({ claim, exasources: formattedSources }),
     });
-
+  
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to verify claim.');
     }
-
+  
     const data = await response.json();
+    console.log("VerifyClaim response for claim:", claim, data.claims);
     return data.claims;
   };
+  
 
   // Updated factCheck function
   const factCheck = async (e: FormEvent) => {

@@ -5,10 +5,15 @@ import { generateText } from 'ai';
 
 export async function POST(req: NextRequest) {
   try {
+
     const { claim, exasources } = await req.json();
-    if (!claim && !exasources) {
+
+    if (!claim || !exasources) {
       return NextResponse.json({ error: 'Claim and sources are required' }, { status: 400 });
     }
+
+    console.log("Received claim:", claim);
+    console.log("Received exasources:", exasources);
 
     // Run the prompt to extract claims
     const { text } = await generateText({
@@ -20,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     Here is the claim: ${claim}
 
-    and here are the sources (in JSON): ${exasources}
+    and here are the sources: ${exasources}
 
     Provide your answer as a JSON object with the following structure:
     {
