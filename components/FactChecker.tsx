@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function FactChecker() {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [factCheckResult, setFactCheckResult] = useState<any[]>([]);
+  const [factCheckResults, setFactCheckResults] = useState<any[]>([]);
   const [articleContent, setArticleContent] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -25,8 +25,7 @@ export default function FactChecker() {
     }
   
     const data = await response.json();
-    
-    return Array.isArray(data.claims) ? data.claims : [];
+    return Array.isArray(data.claims) ? data.claims : JSON.parse(data.claims);
   };
   
 
@@ -46,7 +45,26 @@ export default function FactChecker() {
     }
 
     const data = await response.json();
-    return data;
+    return data.results;
+  };
+
+  // Function to call the verifyclaims API for an individual claim and sources
+  const verifyClaim = async (claim: string, exasources: any) => {
+    const response = await fetch('/api/verifyclaims', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ claim, exasources }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to verify claim.');
+    }
+
+    const data = await response.json();
+    return data.claims;
   };
 
   // Updated factCheck function
@@ -60,22 +78,25 @@ export default function FactChecker() {
 
     setIsGenerating(true);
     setError(null);
-    setFactCheckResult([]);
+    setFactCheckResults([]);
 
     try {
       // Extract claims from the article content
       const claims = await extractClaims(articleContent);
 
-      // Run exaSearch in parallel for each claim
-      const results = await Promise.all(
-        claims.map((claim: string) => exaSearch(claim))
+      // For each claim, fetch sources using exaSearch and then verify with verifyClaim
+      const finalResults = await Promise.all(
+        claims.map(async (claim: string) => {
+          const exaSources = await exaSearch(claim);
+          return await verifyClaim(claim, exaSources);
+        })
       );
 
-      // Set the results from all claims
-      setFactCheckResult(results);
+      // Set the results for all claims
+      setFactCheckResults(finalResults);
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
-      setFactCheckResult([]);
+      setFactCheckResults([]);
     } finally {
       setIsGenerating(false);
     }
@@ -120,16 +141,15 @@ export default function FactChecker() {
           </div>
         )}
 
-        {factCheckResult.length > 0 && (
+        {factCheckResults.length > 0 && (
           <div className="mt-20 w-full bg-white p-4 border outline-none resize-none min-h-[200px] overflow-auto rounded opacity-0 animate-fade-up [animation-delay:200ms]">
-            {factCheckResult.map((result, index) => (
+            {factCheckResults.map((result, index) => (
               <div key={index} className="mb-4">
                 <h3 className="font-semibold">Claim: {result.claim}</h3>
-                <ul>
-                  {result.results.map((source: string, idx: number) => (
-                    <li key={idx}>{source}</li>
-                  ))}
-                </ul>
+                <p>Assessment: {result.assessment}</p>
+                <p>Summary: {result.summary}</p>
+                <p>Confidence Score: {result.confidence_score}</p>
+                {/* <p>Sources: {result.sources.join(', ')}</p> */}
               </div>
             ))}
           </div>
