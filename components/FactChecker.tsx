@@ -182,16 +182,16 @@ export default function FactChecker() {
 
       </main>
 
-      <footer className="w-full py-6 mt-auto">
+      <footer className="w-full py-6 mb-6 mt-auto">
         <div className="max-w-md mx-auto">
           <p className="text-sm text-center text-gray-600">
-            To report bugs or request new features, please message us{" "}
+            this opensource project is built on {"  "}
             <Link
-              href="https://your-link.com" // Add your target link here
+              href="https://exa.ai"
               target="_blank"
-              className="underline font-bold"
+              className="font-bold"
             >
-              here.
+              Exa - the search engine for AIs
             </Link>
           </p>
         </div>
