@@ -5,11 +5,11 @@ import Link from 'next/link';
 
 export default function FactChecker() {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [factCheckResult, setFactCheckResult] = useState('');
+  const [factCheckResult, setFactCheckResult] = useState<any[]>([]);
   const [articleContent, setArticleContent] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  // Separate function to call the extract claims API
+  // Function to call the extract claims API
   const extractClaims = async (content: string) => {
     const response = await fetch('/api/extractclaims', {
       method: 'POST',
@@ -18,14 +18,35 @@ export default function FactChecker() {
       },
       body: JSON.stringify({ content }),
     });
-
+  
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to extract claims.');
     }
+  
+    const data = await response.json();
+    
+    return Array.isArray(data.claims) ? data.claims : [];
+  };
+  
+
+  // Function to call the exasearch API for an individual claim
+  const exaSearch = async (claim: string) => {
+    const response = await fetch('/api/exasearch', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ claim }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to fetch verification for claim.');
+    }
 
     const data = await response.json();
-    return data.claims;
+    return data;
   };
 
   // Updated factCheck function
@@ -39,13 +60,22 @@ export default function FactChecker() {
 
     setIsGenerating(true);
     setError(null);
+    setFactCheckResult([]);
 
     try {
+      // Extract claims from the article content
       const claims = await extractClaims(articleContent);
-      setFactCheckResult(claims || "No claims found.");
+
+      // Run exaSearch in parallel for each claim
+      const results = await Promise.all(
+        claims.map((claim: string) => exaSearch(claim))
+      );
+
+      // Set the results from all claims
+      setFactCheckResult(results);
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
-      setFactCheckResult('');
+      setFactCheckResult([]);
     } finally {
       setIsGenerating(false);
     }
@@ -90,9 +120,18 @@ export default function FactChecker() {
           </div>
         )}
 
-        {factCheckResult && (
+        {factCheckResult.length > 0 && (
           <div className="mt-20 w-full bg-white p-4 border outline-none resize-none min-h-[200px] overflow-auto rounded opacity-0 animate-fade-up [animation-delay:200ms]">
-            {factCheckResult}
+            {factCheckResult.map((result, index) => (
+              <div key={index} className="mb-4">
+                <h3 className="font-semibold">Claim: {result.claim}</h3>
+                <ul>
+                  {result.results.map((source: string, idx: number) => (
+                    <li key={idx}>{source}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         )}
       </main>
