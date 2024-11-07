@@ -67,6 +67,21 @@ const config: Config = {
         'dark-accent-pink-dark': 'var(--dark-accent-pink-dark)',
         'dark-accent-pink-light': 'var(--dark-accent-pink-light)',
       },
+      animation: {
+		    'fade-up': 'fade-up 0.5s ease-out forwards',
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': {
+          opacity: '0',
+          transform: 'translateY(20px)',
+          },
+          '100%': {
+          opacity: '1',
+          transform: 'translateY(0)',
+          },
+        },
+      }
     },
   },
   plugins: [],
