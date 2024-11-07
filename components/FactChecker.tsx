@@ -50,16 +50,12 @@ export default function FactChecker() {
 
   // Function to call the verifyclaims API for an individual claim and sources
   const verifyClaim = async (claim: string, exasources: any) => {
-    const formattedSources = JSON.stringify(exasources);
-  
-    console.log("Calling verifyClaim with formatted sources:", formattedSources);
-  
     const response = await fetch('/api/verifyclaims', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ claim, exasources: formattedSources }),
+      body: JSON.stringify({ claim, exasources }),
     });
   
     if (!response.ok) {
@@ -68,9 +64,17 @@ export default function FactChecker() {
     }
   
     const data = await response.json();
-    console.log("VerifyClaim response for claim:", claim, data.claims);
-    return data.claims;
+    console.log("VerifyClaim raw response:", data.claims); // Log to confirm structure
+  
+    // Remove markdown formatting (```json\n...\n```) and parse the JSON
+    const rawText = data.claims.replace(/```json\n|```/g, ''); // Remove ```json and ``` markers
+    const parsedData = JSON.parse(rawText); // Parse the remaining JSON string
+  
+    console.log("Parsed verifyClaim response:", parsedData);
+  
+    return parsedData;
   };
+   
   
 
   // Updated factCheck function
@@ -147,19 +151,35 @@ export default function FactChecker() {
           </div>
         )}
 
-        {factCheckResults.length > 0 && (
-          <div className="mt-20 w-full bg-white p-4 border outline-none resize-none min-h-[200px] overflow-auto rounded opacity-0 animate-fade-up [animation-delay:200ms]">
-            {factCheckResults.map((result, index) => (
-              <div key={index} className="mb-4">
-                <h3 className="font-semibold">Claim: {result.claim}</h3>
-                <p>Assessment: {result.assessment}</p>
-                <p>Summary: {result.summary}</p>
-                <p>Confidence Score: {result.confidence_score}</p>
-                {/* <p>Sources: {result.sources.join(', ')}</p> */}
-              </div>
-            ))}
-          </div>
-        )}
+{factCheckResults.length > 0 && (
+  <div className="mt-20 w-full bg-white p-4 border outline-none resize-none min-h-[200px] overflow-auto rounded opacity-0 animate-fade-up [animation-delay:200ms]">
+    {factCheckResults.map((result, index) => (
+      <div key={index} className="mb-4">
+        <h3 className="font-semibold">Claim: {result.claim}</h3>
+        <p>Assessment: {result.assessment}</p>
+        <p>Summary: {result.summary}</p>
+        <p>Confidence Score: {result.confidence_score}</p>
+        <p>Sources:</p>
+        <ul>
+          {result.sources && result.sources.length > 0 ? (
+            result.sources.map((source: string, idx: number) => (
+              <li key={idx}>
+                <a href={source} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                  {source}
+                </a>
+              </li>
+            ))
+          ) : (
+            <li>No sources available</li>
+          )}
+        </ul>
+      </div>
+    ))}
+  </div>
+)}
+
+
+
       </main>
 
       <footer className="w-full py-6 mt-auto">
