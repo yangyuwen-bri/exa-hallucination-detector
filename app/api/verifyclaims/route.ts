@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
 
     // Run the prompt to extract claims
     const { text } = await generateText({
-    //   model: anthropic('claude-3-5-sonnet-20240620'),
-      model: openai('gpt-4o'),
+      model: anthropic('claude-3-5-sonnet-20240620'),
+    //   model: openai('gpt-4o'),
       prompt: 
     `You are an expert fact-checker.
     Given a claim and a set of sources, determine whether the claim is supported, refuted, or if there is insufficient information in the sources to make a determination.

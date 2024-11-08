@@ -80,30 +80,39 @@ export default function FactChecker() {
   // Updated factCheck function
   const factCheck = async (e: FormEvent) => {
     e.preventDefault();
-
+  
     if (!articleContent) {
       setError("Please enter some content for fact-checking.");
       return;
     }
-
+  
     setIsGenerating(true);
     setError(null);
     setFactCheckResults([]);
-
+  
     try {
       // Extract claims from the article content
       const claims = await extractClaims(articleContent);
-
+  
       // For each claim, fetch sources using exaSearch and then verify with verifyClaim
       const finalResults = await Promise.all(
         claims.map(async (claim: string) => {
-          const exaSources = await exaSearch(claim);
-          return await verifyClaim(claim, exaSources);
+          try {
+            // Try to get sources for the claim
+            const exaSources = await exaSearch(claim);
+            
+            // If sources are found, proceed to verify the claim
+            return await verifyClaim(claim, exaSources);
+          } catch (error) {
+            // Log the error and return null to indicate failure for this particular claim
+            console.error(`Failed to verify claim: ${claim}`, error);
+            return null;
+          }
         })
       );
-
-      // Set the results for all claims
-      setFactCheckResults(finalResults);
+  
+      // Filter out any null results (claims that failed) before setting results
+      setFactCheckResults(finalResults.filter(result => result !== null));
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
       setFactCheckResults([]);
@@ -111,6 +120,7 @@ export default function FactChecker() {
       setIsGenerating(false);
     }
   };
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -159,10 +169,10 @@ export default function FactChecker() {
                 <p>Assessment: {result.assessment}</p>
                 <p>Summary: {result.summary}</p>
                 <p>Confidence Score: {result.confidence_score}</p>
-                {/* <p>Sources:</p>
+                <p>Sources:</p>
                 <ul>
-                {result.urlsources && result.sources.length > 0 ? (
-                    result.sources.map((source: string, idx: number) => (
+                {result.urlsources && result.urlsources.length > 0 ? (
+                    result.urlsources.map((source: string, idx: number) => (
                     <li key={idx}>
                         <a href={source} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
                         {source}
@@ -172,7 +182,7 @@ export default function FactChecker() {
                 ) : (
                     <li>No sources available</li>
                 )}
-                </ul> */}
+                </ul>
             </div>
             ))}
         </div>
