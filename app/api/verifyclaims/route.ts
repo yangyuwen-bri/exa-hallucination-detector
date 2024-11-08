@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     Here is the claim: ${claim}
 
-    and here are the sources: ${exasources}
+    And here are the sources: ${exasources}
 
     Provide your answer as a JSON object with the following structure:
     {
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
         "assessment": "Supported ✅" or "Refuted ❌" or "Insufficient information",
         "summary": "Why is this claim correct and if it isn't correct, then what's correct. In a single line.",
         "confidence_score": a number between 0 and 1 (1 means fully confident the claim is true, 0 means fully confident the claim is false),
-        "sources": [list of urls from the above sources that support the decision],
+        "urlsources": [list of relevant urls from the above sources that support the decision],
     }
     
     Output the result as valid JSON, strictly adhering to the defined schema. Ensure there are no markdown codes or additional elements included in the output. Do not add anything else. Return only plain JSON.`,

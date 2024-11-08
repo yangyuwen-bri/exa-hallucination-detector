@@ -161,7 +161,7 @@ export default function FactChecker() {
                 <p>Confidence Score: {result.confidence_score}</p>
                 {/* <p>Sources:</p>
                 <ul>
-                {result.sources && result.sources.length > 0 ? (
+                {result.urlsources && result.sources.length > 0 ? (
                     result.sources.map((source: string, idx: number) => (
                     <li key={idx}>
                         <a href={source} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">

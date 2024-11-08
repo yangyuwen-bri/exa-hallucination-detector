@@ -21,7 +21,13 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    return NextResponse.json({ claim, results: result });
+    // Extract only url and text from each result
+    const simplifiedResults = result.results.map((item: any) => ({
+      url: item.url,
+      text: item.text
+    }));
+
+    return NextResponse.json({ results: simplifiedResults });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to perform search' }, { status: 500 });
   }
