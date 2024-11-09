@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
       {
         type: "auto",
         numResults: 5,
-        livecrawl: 'always',
+        // @ts-ignore
+        livecrawl: 'auto',
         text: true,
       }
     );
