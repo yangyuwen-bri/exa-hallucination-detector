@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       {
         type: "auto",
         numResults: 5,
-        livecrawl: 'fallback',
+        livecrawl: 'always',
         text: true,
       }
     );
