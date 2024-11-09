@@ -142,11 +142,11 @@ export default function FactChecker() {
             value={articleContent}
             onChange={(e) => setArticleContent(e.target.value)}
             placeholder="Enter Your Blog or Article Content"
-            className="w-full bg-white p-3 border box-border outline-none rounded-sm ring-2 ring-brand-default resize-none min-h-[150px] overflow-auto opacity-0 animate-fade-up [animation-delay:600ms]"
+            className="w-full bg-white p-3 border box-border outline-none rounded-none ring-2 ring-brand-default resize-none min-h-[150px] overflow-auto opacity-0 animate-fade-up [animation-delay:600ms]"
           />
           <button
             type="submit"
-            className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-sm transition-opacity opacity-0 animate-fade-up [animation-delay:800ms] min-h-[50px] ring-2 ring-brand-default ${
+            className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:800ms] min-h-[50px] ring-2 ring-brand-default ${
               isGenerating ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             disabled={isGenerating}
