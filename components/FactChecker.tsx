@@ -125,6 +125,7 @@ export default function FactChecker() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-4xl p-6 mx-auto">
+        
       <div className="text-left">
         <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:200ms]">
             Fact Check Your
