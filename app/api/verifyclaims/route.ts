@@ -31,9 +31,9 @@ export async function POST(req: NextRequest) {
     Provide your answer as a JSON object with the following structure:
     {
         "claim": "...",
-        "assessment": "True ✅" or "False ❌" or "Insufficient information",
+        "assessment": "True" or "False" or "Insufficient information",
         "summary": "Why is this claim correct and if it isn't correct, then what's correct. In a single line.",
-        "confidence_score": a number between 0 and 1 (1 means fully confident the claim is true, 0 means fully confident the claim is false),
+        "confidence_score": a percentage number between 0 and 100 (100 means fully confident the claim is true, 0 means fully confident the claim is false),
         "urlsources": [list of relevant urls from the above sources that support the decision],
     }
     
