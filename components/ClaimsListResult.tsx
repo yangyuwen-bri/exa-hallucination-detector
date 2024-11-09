@@ -18,7 +18,7 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
     const isTrue = assessment.toLowerCase().includes('true');
     return (
       <span 
-        className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium ${
+        className={`inline-flex items-center px-3 py-1 rounded-none text-sm font-medium ${
           isTrue 
             ? 'bg-green-100 text-green-800 border border-green-200' 
             : 'bg-red-100 text-red-800 border border-red-200'
@@ -31,7 +31,7 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
   };
 
   return (
-    <div className="mt-20 w-full bg-white p-6 border rounded-lg shadow-sm space-y-16">
+    <div className="mt-20 w-full bg-white p-6 border rounded-none shadow-sm space-y-16">
       {results.map((result, index) => (
         <div key={index} className="space-y-4">
           <h3 className="font-semibold text-lg text-gray-900">{result.claim}</h3>
