@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
       model: anthropic('claude-3-5-sonnet-20240620'),
     //   model: openai('gpt-4o'),
       prompt: 
-    `You are an expert fact-checker.
-    Given a claim and a set of sources, determine whether the claim is true, false, or if there is insufficient information in the sources to make a determination.
+    `You are an expert fact-checker. Given a claim and a set of sources, determine whether the claim is true or false based on the text from sources (or if there is insufficient information).
+    
     For your analysis, consider all the sources collectively.
 
     Here is the claim: ${claim}
@@ -31,10 +31,10 @@ export async function POST(req: NextRequest) {
     Provide your answer as a JSON object with the following structure:
     {
         "claim": "...",
-        "assessment": "True" or "False" or "Insufficient information",
+        "assessment": "True" or "False" or "Insufficient Information",
         "summary": "Why is this claim correct and if it isn't correct, then what's correct. In a single line.",
-        "confidence_score": a percentage number between 0 and 100 (100 means fully confident the claim is true, 0 means fully confident the claim is false),
-        "urlsources": [list of relevant urls from the above sources that support the decision],
+        "confidence_score": a percentage number between 0 and 100 (100 means fully confident that the decision you have made is correct, 0 means you are completely unsure),
+        "url_sources": [list of relevant urls from the above sources that support the decision],
     }
     
     Output the result as valid JSON, strictly adhering to the defined schema. Ensure there are no markdown codes or additional elements included in the output. Do not add anything else. Return only plain JSON.`,

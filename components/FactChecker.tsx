@@ -150,10 +150,6 @@ export default function FactChecker() {
             We verify all your facts with real sources, so you can publish your blogs and articles with confidence.
         </p>
        </div>
-
-       
-
-
     
         <form onSubmit={factCheck} className="space-y-4 w-full">
             <textarea
@@ -195,7 +191,6 @@ export default function FactChecker() {
         )}
 
       </main>
-
   
         <footer className="w-full py-6 mb-6 mt-auto">
             <div className="max-w-md mx-auto">
@@ -211,7 +206,6 @@ export default function FactChecker() {
                 </p>
             </div>
         </footer>
-
 
     </div>
     

@@ -6,7 +6,7 @@ interface ClaimsListResult {
   assessment: string;
   summary: string;
   confidence_score: number;
-  urlsources?: string[];
+  url_sources?: string[];
 }
 
 interface ClaimsListResultsProps {
@@ -32,7 +32,9 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
 
   return (
     <div className="mt-20 w-full bg-white p-6 border rounded-none shadow-sm space-y-16">
-      {results.map((result, index) => (
+      {results
+      .filter((result) => result.assessment.toLowerCase() !== 'insufficient information')
+      .map((result, index) => (
         <div key={index} className="space-y-4">
           <h3 className="font-semibold text-lg text-gray-900">{result.claim}</h3>
           
@@ -52,8 +54,8 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
             </div>
             
             <ul className="space-y-2 pl-6">
-              {result.urlsources && result.urlsources.length > 0 ? (
-                result.urlsources.map((source, idx) => (
+              {result.url_sources && result.url_sources.length > 0 ? (
+                result.url_sources.map((source, idx) => (
                   <li key={idx}>
                     <a 
                       href={source}
