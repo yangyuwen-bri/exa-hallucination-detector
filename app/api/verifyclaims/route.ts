@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
     console.log("Received claim:", claim);
     console.log("Received exasources:", exasources);
 
-    // Run the prompt to extract claims
     const { text } = await generateText({
       model: anthropic('claude-3-5-sonnet-20240620'),
     //   model: openai('gpt-4o'),

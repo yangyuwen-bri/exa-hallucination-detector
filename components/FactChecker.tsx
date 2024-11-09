@@ -1,7 +1,7 @@
 "use client";
 
+import Link from "next/link";
 import { useState, FormEvent } from "react";
-import Link from 'next/link';
 
 export default function FactChecker() {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -64,11 +64,10 @@ export default function FactChecker() {
     }
   
     const data = await response.json();
-    console.log("VerifyClaim raw response:", data.claims); // Log to confirm structure
+    console.log("VerifyClaim raw response:", data.claims);
   
-    // Remove markdown formatting (```json\n...\n```) and parse the JSON
-    const rawText = data.claims.replace(/```json\n|```/g, ''); // Remove ```json and ``` markers
-    const parsedData = JSON.parse(rawText); // Parse the remaining JSON string
+    const rawText = data.claims.replace(/```json\n|```/g, '');
+    const parsedData = JSON.parse(rawText);
   
     console.log("Parsed verifyClaim response:", parsedData);
   
@@ -125,7 +124,7 @@ export default function FactChecker() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-4xl p-6 mx-auto">
-        
+
       <div className="text-left">
         <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:200ms]">
             Fact Check Your
@@ -189,24 +188,26 @@ export default function FactChecker() {
         </div>
         )}
 
-
-
       </main>
 
-      <footer className="w-full py-6 mb-6 mt-auto">
-        <div className="max-w-md mx-auto">
-          <p className="text-sm text-center text-gray-600">
-            this opensource project is built on {"  "}
-            <Link
-              href="https://exa.ai"
-              target="_blank"
-              className="font-bold"
-            >
-              Exa - the search engine for AIs
-            </Link>
-          </p>
-        </div>
-      </footer>
+  
+        <footer className="w-full py-6 mb-6 mt-auto z-50">
+            <div className="max-w-md mx-auto">
+                <p className="text-sm text-center text-gray-600">
+                    this opensource project is built on {" "}
+                    <Link 
+                        href="https://exa.ai" 
+                        target="_blank"
+                        className="font-bold hover:underline cursor-pointer"
+                    >
+                        Exa - the search engine for AIs
+                    </Link>
+                </p>
+            </div>
+        </footer>
+
+
     </div>
+    
   );
 }
