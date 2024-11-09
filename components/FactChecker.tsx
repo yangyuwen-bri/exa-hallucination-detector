@@ -28,7 +28,6 @@ export default function FactChecker() {
     return Array.isArray(data.claims) ? data.claims : JSON.parse(data.claims);
   };
   
-
   // Function to call the exasearch API for an individual claim
   const exaSearch = async (claim: string) => {
     const response = await fetch('/api/exasearch', {
@@ -74,15 +73,19 @@ export default function FactChecker() {
     return parsedData;
   };
    
-  
 
-  // Updated factCheck function
+  // factCheck function
   const factCheck = async (e: FormEvent) => {
     e.preventDefault();
   
     if (!articleContent) {
-      setError("Please enter some content for fact-checking.");
+      setError("Please enter some content or try with sample blog.");
       return;
+    }
+
+    if (articleContent.length < 50) {
+        setError("Too short. Please enter at least 50 characters.");
+        return;
     }
   
     setIsGenerating(true);
@@ -121,8 +124,18 @@ export default function FactChecker() {
   };
 
 
+  // Sample blog content
+  const sampleBlog = `The Eiffel Tower, a remarkable iron lattice structure standing proudly in Paris, was originally built as a giant sundial in 1822, intended to cast shadows across the city to mark the hours. Designed by the renowned architect Jean-Claude Eiffel, the tower stands 324 meters tall and once housed the city's first observatory.\n\nWhile it’s famously known for hosting over 7 million visitors annually, it was initially disliked by Parisians. Interestingly, the Eiffel Tower was briefly used as a lighthouse to guide ships along the Seine during cloudy nights.`;
+
+  // Function to populate textarea with sample content
+  const loadSampleContent = () => {
+    setArticleContent(sampleBlog);
+    setError(null);
+  };
+
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen z-0">
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-4xl p-6 mx-auto">
 
       <div className="text-left">
@@ -137,26 +150,41 @@ export default function FactChecker() {
         </p>
        </div>
 
-        <form onSubmit={factCheck} className="space-y-6 w-full">
-          <textarea
-            value={articleContent}
-            onChange={(e) => setArticleContent(e.target.value)}
-            placeholder="Enter Your Blog or Article Content"
-            className="w-full bg-white p-3 border box-border outline-none rounded-none ring-2 ring-brand-default resize-none min-h-[150px] overflow-auto opacity-0 animate-fade-up [animation-delay:600ms]"
-          />
-          <button
-            type="submit"
-            className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:800ms] min-h-[50px] ring-2 ring-brand-default ${
-              isGenerating ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={isGenerating}
-          >
+       
+
+
+    
+        <form onSubmit={factCheck} className="space-y-4 w-full">
+            <textarea
+                value={articleContent}
+                onChange={(e) => setArticleContent(e.target.value)}
+                placeholder="Enter Your Blog or Article Content"
+                className="w-full bg-white p-3 border box-border outline-none rounded-none ring-2 ring-brand-default resize-none min-h-[150px] overflow-auto opacity-0 animate-fade-up [animation-delay:600ms]"
+            />
+
+            <div className="pb-5 opacity-0 animate-fade-up [animation-delay:600ms]">
+                <button
+                    onClick={loadSampleContent}
+                    className="text-brand-default hover:underline cursor-pointer"
+                >
+                    Try with a sample blog
+                </button>
+            </div>
+
+            <button
+                type="submit"
+                className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:800ms] min-h-[50px] ring-2 ring-brand-default ${
+                isGenerating ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={isGenerating}
+            >
+
             {isGenerating ? 'Fact Checking...' : 'Fact Check Now'}
           </button>
         </form>
 
         {error && (
-          <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-none">
             {error}
           </div>
         )}
@@ -191,7 +219,7 @@ export default function FactChecker() {
       </main>
 
   
-        <footer className="w-full py-6 mb-6 mt-auto z-50">
+        <footer className="w-full py-6 mb-6 mt-auto">
             <div className="max-w-md mx-auto">
                 <p className="text-sm text-center text-gray-600">
                     this opensource project is built on {" "}
