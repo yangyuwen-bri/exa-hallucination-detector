@@ -175,7 +175,7 @@ export default function FactChecker() {
       <div className="w-full flex justify-center pt-10 opacity-0 animate-fade-up [animation-delay:200ms]">
         <Link href="https://exa.ai/" target="_blank">
           <AnimatedGradientText>
-            <img src="favicon.ico" alt="favicon" className="w-5 h-5 inline-block mr-2" />
+          <img src="/favicon.ico" alt="favicon" className="w-5 h-5 inline-block mr-2" />
             <span className="inline animate-gradient bg-gradient-to-r from-[#254bf1] via-purple-600 to-[#254bf1] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
               Built on Exa - Search Engine for AI
             </span>
