@@ -44,7 +44,7 @@ const LoadingMessages: React.FC<LoadingMessagesProps> = ({ isGenerating }) => {
   }, [isGenerating]);
 
   return (
-    <div className="w-full mt-20 mb-32">
+    <div className="w-full mt-20 mb-40">
       <div className="text-secondary-accent/50 text-lg opacity-0 animate-fade-up [animation-delay:200ms]">
         {isGenerating ? loadingMessages[currentMessageIndex] : ""}
       </div>

@@ -21,6 +21,21 @@ export default function FactChecker() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [showAllClaims, setShowAllClaims] = useState(false);
 
+  // Create a ref for the loading or bottom section
+  const loadingRef = useRef<HTMLDivElement>(null);
+
+  // Function to scroll to the loading section
+  const scrollToLoading = () => {
+    loadingRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Watch for changes to `isGenerating` and scroll when it becomes `true`
+  useEffect(() => {
+    if (isGenerating) {
+      scrollToLoading();
+    }
+  }, [isGenerating]);
+
   // Function to adjust textarea height
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
@@ -162,7 +177,7 @@ export default function FactChecker() {
           <AnimatedGradientText>
             <img src="favicon.ico" alt="favicon" className="w-5 h-5 inline-block mr-2" />
             <span className="inline animate-gradient bg-gradient-to-r from-[#254bf1] via-purple-600 to-[#254bf1] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
-              Built on Exa - Search API for AIs
+              Built on Exa - Search Engine for AI
             </span>
             <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
           </AnimatedGradientText>
@@ -211,7 +226,11 @@ export default function FactChecker() {
           </button>
         </form>
 
-        {isGenerating && <LoadingMessages isGenerating={isGenerating} />}
+        {isGenerating && (
+            <div ref={loadingRef} className="w-full">
+            <LoadingMessages isGenerating={isGenerating} />
+            </div>
+        )}
 
         {error && (
           <div className="mt-4 mb-14 p-3 bg-red-100 border border-red-400 text-red-700 rounded-none">
