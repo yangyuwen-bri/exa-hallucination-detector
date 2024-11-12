@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useState, FormEvent, useRef, useEffect } from "react";
 import ClaimsListResults from "./ClaimsListResult";
 import LoadingMessages from "./ui/LoadingMessages";
+import ArticleDisplay from "./PreviewBox";
+import PreviewBox from "./PreviewBox";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Claim {
     claim: string;
@@ -16,6 +19,7 @@ export default function FactChecker() {
   const [articleContent, setArticleContent] = useState('');
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [showAllClaims, setShowAllClaims] = useState(false);
 
   // Function to adjust textarea height
   const adjustTextareaHeight = () => {
@@ -164,7 +168,7 @@ export default function FactChecker() {
           </p>
         </div>
     
-        <form onSubmit={factCheck} className="space-y-4 w-full">
+        <form onSubmit={factCheck} className="space-y-4 w-full mb-14">
           <textarea
             ref={textareaRef}
             value={articleContent}
@@ -196,14 +200,46 @@ export default function FactChecker() {
         {isGenerating && <LoadingMessages isGenerating={isGenerating} />}
 
         {error && (
-          <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-none">
+          <div className="mt-4 mb-14 p-3 bg-red-100 border border-red-400 text-red-700 rounded-none">
             {error}
           </div>
         )}
 
         {factCheckResults.length > 0 && (
-          <ClaimsListResults results={factCheckResults} />
+        <div className="space-y-14 mb-32">
+            <PreviewBox
+            content={articleContent}
+            claims={factCheckResults}
+            />
+            <div className="mt-8">
+                <button
+                onClick={() => setShowAllClaims(!showAllClaims)}
+                className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 font-medium"
+                >
+                {showAllClaims ? (
+                    <>
+                    <span>Show Less Claims</span>
+                    <ChevronUp size={20} />
+                    </>
+                ) : (
+                    <>
+                    <span>Show All Claims</span>
+                    <ChevronDown size={20} />
+                    </>
+                )}
+                </button>
+
+                {/* Claims List */}
+                {showAllClaims && (
+                <div>
+                    <ClaimsListResults results={factCheckResults} />
+                </div>
+                )}
+            </div>
+        </div>
         )}
+
+
       </main>
   
       <footer className="w-full py-6 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1200ms]">

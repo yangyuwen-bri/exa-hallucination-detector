@@ -32,7 +32,7 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
   };
 
   return (
-    <div className="mt-20 w-full bg-white p-6 border rounded-none shadow-sm space-y-16">
+    <div className="mt-6 w-full bg-white p-6 border rounded-none shadow-sm space-y-16">
       {results
       .filter((result) => result.assessment.toLowerCase() !== 'insufficient information')
       .map((result, index) => (
@@ -48,7 +48,7 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
           
           <p className="text-gray-700 mt-2">{result.summary}</p>
 
-          <p className="text-gray-700 mt-2">{result.fixed_original_text}</p>
+          {/* <p className="text-gray-700 mt-2">{result.fixed_original_text}</p> */}
           
           <div className="mt-4">
             <div className="flex items-center space-x-2 text-gray-700 mb-2">
