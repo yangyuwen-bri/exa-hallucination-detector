@@ -5,6 +5,7 @@ interface ClaimsListResult {
   claim: string;
   assessment: string;
   summary: string;
+  fixed_original_text: string;
   confidence_score: number;
   url_sources?: string[];
 }
@@ -46,6 +47,8 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
           </div>
           
           <p className="text-gray-700 mt-2">{result.summary}</p>
+
+          <p className="text-gray-700 mt-2">{result.fixed_original_text}</p>
           
           <div className="mt-4">
             <div className="flex items-center space-x-2 text-gray-700 mb-2">
