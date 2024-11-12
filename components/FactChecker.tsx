@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, FormEvent, useRef, useEffect } from "react";
 import ClaimsListResults from "./ClaimsListResult";
+import LoadingMessages from "./ui/LoadingMessages";
 
 export default function FactChecker() {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -183,6 +184,8 @@ export default function FactChecker() {
             {isGenerating ? 'Fact Checking...' : 'Fact Check Now'}
           </button>
         </form>
+
+        {isGenerating && <LoadingMessages isGenerating={isGenerating} />}
 
         {error && (
           <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-none">
