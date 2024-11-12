@@ -5,7 +5,8 @@ import { useState, FormEvent, useRef, useEffect } from "react";
 import ClaimsListResults from "./ClaimsListResult";
 import LoadingMessages from "./ui/LoadingMessages";
 import PreviewBox from "./PreviewBox";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
+import AnimatedGradientText from "./ui/animated-gradient-text";
 
 interface Claim {
     claim: string;
@@ -154,6 +155,20 @@ export default function FactChecker() {
 
   return (
     <div className="flex flex-col min-h-screen z-0">
+
+        {/* Badge positioned at the top */}
+      <div className="w-full flex justify-center pt-10 opacity-0 animate-fade-up [animation-delay:200ms]">
+        <Link href="https://exa.ai/" target="_blank">
+          <AnimatedGradientText>
+            <img src="favicon.ico" alt="favicon" className="w-5 h-5 inline-block mr-2" />
+            <span className="inline animate-gradient bg-gradient-to-r from-[#254bf1] via-purple-600 to-[#254bf1] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
+              Built on Exa - Search API for AIs
+            </span>
+            <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+          </AnimatedGradientText>
+        </Link>
+      </div>
+
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-6xl md:max-w-4xl p-6">
         <div className="text-left">
           <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:200ms]">
@@ -244,13 +259,13 @@ export default function FactChecker() {
       <footer className="w-full py-6 px-8 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1200ms]">
         <div className="max-w-md mx-auto">
           <p className="text-sm text-center text-gray-600">
-            this opensource project is built on {" "}
+            this an opensource project is built on {" "}
             <Link 
               href="https://exa.ai" 
               target="_blank"
               className="font-bold hover:underline cursor-pointer"
             >
-              Exa - the search engine for AIs
+              Exa
             </Link>
           </p>
         </div>
