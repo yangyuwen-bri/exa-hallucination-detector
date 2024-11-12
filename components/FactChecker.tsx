@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, FormEvent, useRef, useEffect } from "react";
 import ClaimsListResults from "./ClaimsListResult";
 import LoadingMessages from "./ui/LoadingMessages";
-import ArticleDisplay from "./PreviewBox";
 import PreviewBox from "./PreviewBox";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -168,7 +167,7 @@ export default function FactChecker() {
           </p>
         </div>
     
-        <form onSubmit={factCheck} className="space-y-4 w-full mb-14">
+        <form onSubmit={factCheck} className="space-y-4 w-full mb-16">
           <textarea
             ref={textareaRef}
             value={articleContent}
@@ -211,7 +210,7 @@ export default function FactChecker() {
             content={articleContent}
             claims={factCheckResults}
             />
-            <div className="mt-8">
+            <div className="mt-8 opacity-0 animate-fade-up [animation-delay:800ms]">
                 <button
                 onClick={() => setShowAllClaims(!showAllClaims)}
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 font-medium"

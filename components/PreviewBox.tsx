@@ -104,12 +104,12 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
 
       {/* Preview Box */}
        <div className="relative">
-         <div className="w-full min-h-[200px] p-6 bg-white border rounded-none shadow-sm">
+         <div className="w-full min-h-[200px] p-6 bg-white border rounded-none shadow-sm opacity-0 animate-fade-up [animation-delay:200ms]">
            {highlightClaims()}
          </div>
         
         {/* Copy Button */}
-         <div className="flex justify-end mt-3 mb-10 mr-5">
+         <div className="flex justify-end mt-3 mb-10 mr-5 opacity-0 animate-fade-up [animation-delay:400ms]">
            <button
             onClick={handleCopy}
             className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900"

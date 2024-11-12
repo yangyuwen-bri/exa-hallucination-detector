@@ -21,7 +21,7 @@ export const PreviewClaimCard: React.FC<PreviewClaimCardProps> = ({ claim, onAcc
   const isTrue = claim.assessment.toLowerCase().includes('true');
 
   return (
-    <div className="bg-white border rounded-none shadow-sm p-6 space-y-4">
+    <div className="bg-white border rounded-none shadow-sm p-6 space-y-4 opacity-0 animate-fade-up [animation-delay:600ms]">
       <h3 className="font-semibold text-lg text-gray-900">{claim.claim}</h3>
 
       <div className="flex items-center gap-3">
