@@ -31,6 +31,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ results: simplifiedResults });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to perform search' }, { status: 500 });
+    return NextResponse.json({ error: `Failed to perform search | ${error}` }, { status: 500 });
   }
 }
