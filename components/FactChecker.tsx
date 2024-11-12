@@ -241,7 +241,7 @@ export default function FactChecker() {
 
       </main>
   
-      <footer className="w-full py-6 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1200ms]">
+      <footer className="w-full py-6 px-3 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1200ms]">
         <div className="max-w-md mx-auto">
           <p className="text-sm text-center text-gray-600">
             this opensource project is built on {" "}
