@@ -5,6 +5,11 @@ import { useState, FormEvent, useRef, useEffect } from "react";
 import ClaimsListResults from "./ClaimsListResult";
 import LoadingMessages from "./ui/LoadingMessages";
 
+interface Claim {
+    claim: string;
+    original_text: string;
+}
+
 export default function FactChecker() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [factCheckResults, setFactCheckResults] = useState<any[]>([]);
@@ -48,6 +53,8 @@ export default function FactChecker() {
   
   // ExaSearch function
   const exaSearch = async (claim: string) => {
+    console.log(`Claim recieved in exa search: ${claim}`);
+
     const response = await fetch('/api/exasearch', {
       method: 'POST',
       headers: {
@@ -66,13 +73,13 @@ export default function FactChecker() {
   };
 
   // Verify claims function
-  const verifyClaim = async (claim: string, exasources: any) => {
+  const verifyClaim = async (claim: string, original_text: string, exasources: any) => {
     const response = await fetch('/api/verifyclaims', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ claim, exasources }),
+      body: JSON.stringify({ claim, original_text, exasources }),
     });
   
     if (!response.ok) {
@@ -112,10 +119,11 @@ export default function FactChecker() {
     try {
       const claims = await extractClaims(articleContent);
       const finalResults = await Promise.all(
-        claims.map(async (claim: string) => {
+        claims.map(async ({ claim, original_text }: Claim) => {
           try {
             const exaSources = await exaSearch(claim);
-            return await verifyClaim(claim, exaSources);
+            const verifiedClaim = await verifyClaim(claim, original_text, exaSources);
+            return { ...verifiedClaim, original_text };
           } catch (error) {
             console.error(`Failed to verify claim: ${claim}`, error);
             return null;

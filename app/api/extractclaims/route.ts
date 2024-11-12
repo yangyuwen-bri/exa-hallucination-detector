@@ -1,6 +1,6 @@
 // app/api/extractclaims/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { anthropic } from "@ai-sdk/anthropic"
+import { anthropic } from "@ai-sdk/anthropic";
 import { generateText } from 'ai';
 
 export async function POST(req: NextRequest) {
@@ -10,21 +10,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Content is required' }, { status: 400 });
     }
 
-    // Run the prompt to extract claims
+    // Run the prompt to extract claims along with original text parts
     const { text } = await generateText({
       model: anthropic('claude-3-5-sonnet-20240620'),
       prompt: 
-    `You are an expert at extracting claims from text.
-    Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a single, verifiable statement.
-    Consider various forms of claims, including assertions, statistics, and quotes.
-    Present the claims as a JSON array of strings, and do not include any additional text.
-    
-    Here is the content: ${content}
-    
-    Give me the JSON array of strings of the claims.`,
+      `You are an expert at extracting claims from text.
+      Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a single, verifiable statement.
+      For each claim, also provide the original part of the sentence from which the claim is derived.
+      Present the claims as a JSON array of objects. Each object should have two keys:
+      - "claim": the extracted claim in a single verifiable statement.
+      - "original_text": the portion of the original text that supports or contains the claim.
+      
+      Do not include any additional text or commentary.
+
+      Here is the content: ${content}
+
+      Return the output strictly as a JSON array of objects following this schema:
+      [
+        {
+          "claim": "extracted claim here",
+          "original_text": "original text portion here"
+        },
+        ...
+      ]
+
+        Output the result as valid JSON, strictly adhering to the defined schema. Ensure there are no markdown codes or additional elements included in the output. Do not add anything else. Return only JSON.
+      `,
     });
 
-    return NextResponse.json({ claims: text });
+    return NextResponse.json({ claims: JSON.parse(text) });
   } catch (error) {
     return NextResponse.json({ error: `Failed to extract claims | ${error}` }, { status: 500 });
   }
