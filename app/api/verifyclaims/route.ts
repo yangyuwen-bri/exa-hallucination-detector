@@ -4,6 +4,10 @@ import { anthropic } from "@ai-sdk/anthropic"
 // import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 
+// This function can run for a maximum of 60 seconds
+export const maxDuration = 60;
+
+
 export async function POST(req: NextRequest) {
   try {
 

@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { anthropic } from "@ai-sdk/anthropic";
 import { generateText } from 'ai';
 
+// This function can run for a maximum of 60 seconds
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
   try {
     const { content } = await req.json();
@@ -16,6 +19,8 @@ export async function POST(req: NextRequest) {
       prompt: 
       `You are an expert at extracting claims from text.
       Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a single, verifiable statement.
+      If the input content is very lengthy, then pick only the major claims.
+
       For each claim, also provide the original part of the sentence from which the claim is derived.
       Present the claims as a JSON array of objects. Each object should have two keys:
       - "claim": the extracted claim in a single verifiable statement.
