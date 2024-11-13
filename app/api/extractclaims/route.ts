@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       prompt: 
       `You are an expert at extracting claims from text.
       Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a single, verifiable statement.
-      If the input content is very lengthy, then pick only the major claims.
+      If the input content is very lengthy, then pick the major claims.
 
       For each claim, also provide the original part of the sentence from which the claim is derived.
       Present the claims as a JSON array of objects. Each object should have two keys:
