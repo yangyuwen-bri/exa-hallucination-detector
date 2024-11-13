@@ -100,7 +100,7 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
 
       {/* Preview Box */}
        <div className="relative">
