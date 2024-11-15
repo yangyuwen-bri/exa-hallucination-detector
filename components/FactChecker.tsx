@@ -19,7 +19,7 @@ export default function FactChecker() {
   const [articleContent, setArticleContent] = useState('');
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [showAllClaims, setShowAllClaims] = useState(false);
+  const [showAllClaims, setShowAllClaims] = useState(true);
 
   // Create a ref for the loading or bottom section
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -160,7 +160,7 @@ export default function FactChecker() {
   };
 
   // Sample blog content
-  const sampleBlog = `The Eiffel Tower, a remarkable iron lattice structure standing proudly in Paris, was originally built as a giant sundial in 1822, intended to cast shadows across the city to mark the hours. Designed by the renowned architect Gustave Eiffel, the tower stands 324 meters tall and once housed the city's first observatory.\n\nWhile it's famously known for hosting over 7 million visitors annually, it was initially disliked by Parisians. Interestingly, the Eiffel Tower was briefly used as a lighthouse to guide ships along the Seine during cloudy nights.`;
+  const sampleBlog = `The Eiffel Tower, a remarkable iron lattice structure standing proudly in Paris, was originally built as a giant sundial in 1822, intended to cast shadows across the city to mark the hours. Designed by the renowned architect Gustave Eiffel, the tower stands 324 meters tall and once housed the city's first observatory.\n\nWhile it's famously known for hosting over 7 million visitors annually, it was initially disliked by Parisians. Interestingly, the Eiffel Tower was used as to guide ships along the Seine during cloudy nights.`;
 
   // Load sample content function
   const loadSampleContent = () => {
@@ -186,30 +186,33 @@ export default function FactChecker() {
 
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-6xl md:max-w-4xl p-6">
         <div className="text-left">
-          <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:200ms]">
+          <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:400ms]">
             Fact Check Your
             <span className="text-brand-default"> Blogs & Articles </span>
             Instantly
           </h1>
 
-          <p className="text-gray-800 mb-12 opacity-0 animate-fade-up [animation-delay:400ms]">
-            We verify all your facts with real sources, so you can publish your blogs and articles with confidence.
+          <p className="text-gray-800 mb-12 opacity-0 animate-fade-up [animation-delay:600ms]">
+            Verify your content with real web data. Publish with confidence.
           </p>
         </div>
     
-        <form onSubmit={factCheck} className="space-y-4 w-full mb-16">
+        <form onSubmit={factCheck} className="space-y-6 w-full mb-10">
           <textarea
             ref={textareaRef}
             value={articleContent}
             onChange={(e) => setArticleContent(e.target.value)}
             placeholder="Enter Your Blog or Article Content"
-            className="w-full bg-white p-3 border box-border outline-none rounded-none ring-2 ring-brand-default resize-none min-h-[150px] max-h-[250px] overflow-auto opacity-0 animate-fade-up [animation-delay:600ms] transition-[height] duration-200 ease-in-out"
+            className="w-full bg-white p-3 border box-border outline-none rounded-none ring-2 ring-brand-default resize-none min-h-[150px] max-h-[250px] overflow-auto opacity-0 animate-fade-up [animation-delay:800ms] transition-[height] duration-200 ease-in-out"
           />
 
-          <div className="pb-5 opacity-0 animate-fade-up [animation-delay:800ms]">
+          <div className="pb-5">
             <button
               onClick={loadSampleContent}
-              className="text-brand-default hover:underline cursor-pointer"
+              disabled={isGenerating}
+              className={`px-3 py-2 border-2 border-brand-default text-brand-default font-semibold rounded-none hover:bg-brand-default hover:text-white transition-all opacity-0 animate-fade-up [animation-delay:1000ms] ${
+                isGenerating ? 'cursor-not-allowed' : ''
+              }`}
             >
               Try with a sample blog
             </button>
@@ -217,7 +220,7 @@ export default function FactChecker() {
 
           <button
             type="submit"
-            className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:1000ms] min-h-[50px] ring-2 ring-brand-default ${
+            className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:1200ms] min-h-[50px] ring-2 ring-brand-default ${
               isGenerating ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             disabled={isGenerating}
@@ -233,25 +236,25 @@ export default function FactChecker() {
         )}
 
         {error && (
-          <div className="mt-4 mb-14 p-3 bg-red-100 border border-red-400 text-red-700 rounded-none">
+          <div className="mt-1 mb-14 p-3 bg-red-100 border border-red-400 animate-fade-up text-red-700 rounded-none">
             {error}
           </div>
         )}
 
         {factCheckResults.length > 0 && (
-        <div className="space-y-14 mb-32">
+        <div className="space-y-14 mt-5 mb-32">
             <PreviewBox
             content={articleContent}
             claims={factCheckResults}
             />
-            <div className="mt-8 opacity-0 animate-fade-up [animation-delay:800ms]">
+            <div className="mt-4 pt-12 opacity-0 animate-fade-up [animation-delay:800ms]">
                 <button
                 onClick={() => setShowAllClaims(!showAllClaims)}
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 font-medium"
                 >
                 {showAllClaims ? (
                     <>
-                    <span>Show Less Claims</span>
+                    <span>Hide Claims</span>
                     <ChevronUp size={20} />
                     </>
                 ) : (
@@ -275,14 +278,14 @@ export default function FactChecker() {
 
       </main>
   
-      <footer className="w-full py-6 px-8 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1200ms]">
+      <footer className="w-full py-6 px-8 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1400ms]">
         <div className="max-w-md mx-auto">
           <p className="text-sm text-center text-gray-600">
-            this an opensource project is built on {" "}
+            This is an open source project built on {" "}
             <Link 
               href="https://exa.ai" 
               target="_blank"
-              className="font-bold hover:underline cursor-pointer"
+              className="font-bold underline cursor-pointer"
             >
               Exa
             </Link>

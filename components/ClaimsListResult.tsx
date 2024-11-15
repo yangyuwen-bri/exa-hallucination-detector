@@ -26,7 +26,7 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
         }`}
       >
         <span className="mr-2">{isTrue ? '✅' : '❌'}</span>
-        {isTrue ? 'Potentially True' : 'Potentially False'}
+        {isTrue ? 'Supported' : 'Refuted'}
       </span>
     );
   };

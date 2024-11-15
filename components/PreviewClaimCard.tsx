@@ -34,7 +34,7 @@ export const PreviewClaimCard: React.FC<PreviewClaimCardProps> = ({ claim, onAcc
           }`}
         >
           <span className="mr-2">{isTrue ? '✅' : '❌'}</span>
-          {isTrue ? 'Potentially True' : 'Potentially False'}
+          {isTrue ? 'Supported' : 'Refuted'}
         </span>
         <span className="text-gray-600 text-sm">
           {claim.confidence_score}% Confident
