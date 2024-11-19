@@ -23,23 +23,26 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
   const [selectedClaim, setSelectedClaim] = useState<Claim | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const claimsNeedingFix = claims.filter(
-    claim => 
-      claim.fixed_original_text !== claim.original_text &&
-      claim.assessment.toLowerCase().includes('false')
+  // Filter out claims with "Insufficient Information"
+  const filteredClaims = claims.filter(
+    (claim) => claim.assessment.toLowerCase() !== 'insufficient information'
+  );
+
+  const claimsNeedingFix = filteredClaims.filter(
+    (claim) => claim.assessment.toLowerCase() === 'false'
   );
 
   useEffect(() => {
     if (claimsNeedingFix.length > 0 && !selectedClaim) {
       setSelectedClaim(claimsNeedingFix[0]);
     }
-  }, [claims]);
+  }, [claimsNeedingFix]);
 
   const highlightClaims = () => {
     let segments = [];
     let lastIndex = 0;
-    
-    const sortedClaims = [...claims].sort((a, b) => {
+
+    const sortedClaims = [...filteredClaims].sort((a, b) => {
       return displayText.indexOf(a.original_text) - displayText.indexOf(b.original_text);
     });
 
@@ -103,14 +106,14 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
     <div className="space-y-8 w-full">
 
       {/* Preview Box */}
-       <div className="relative">
-         <div className="w-full min-h-[200px] p-6 bg-white border rounded-none shadow-sm opacity-0 animate-fade-up [animation-delay:200ms]">
-           {highlightClaims()}
-         </div>
+      <div className="relative">
+        <div className="w-full min-h-[200px] p-6 bg-white border rounded-none shadow-sm opacity-0 animate-fade-up [animation-delay:200ms]">
+          {highlightClaims()}
+        </div>
         
         {/* Copy Button */}
-         <div className="flex justify-end mt-3 mb-10 mr-5 opacity-0 animate-fade-up [animation-delay:400ms]">
-           <button
+        <div className="flex justify-end mt-3 mb-10 mr-5 opacity-0 animate-fade-up [animation-delay:400ms]">
+          <button
             onClick={handleCopy}
             className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900"
           >

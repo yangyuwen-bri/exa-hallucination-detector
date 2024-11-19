@@ -35,7 +35,7 @@ const LoadingMessages: React.FC<LoadingMessagesProps> = ({ isGenerating }) => {
             return prevIndex;
           }
         });
-      }, Math.floor(Math.random() * 4000) + 2000);
+      }, Math.floor(Math.random() * 9000) + 3000);
     } else {
       setCurrentMessageIndex(0);
     }
