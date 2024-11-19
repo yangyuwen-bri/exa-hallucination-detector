@@ -22,9 +22,9 @@ const reckless = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Fact Checker Tool",
-  description: "Fact Check Your Blogs & Articles Instantly for Free.",
-  metadataBase: new URL('https://factchecker-exa.vercel.app'),
+  title: 'Hallucinations Detector Tool',
+  description: 'Detect Hallucinations in Your Blogs & Articles Instantly for Free.',
+  metadataBase: new URL('https://exa-hallucination-checker.vercel.app/'),
   
   // Favicon
   icons: {
@@ -35,16 +35,16 @@ export const metadata: Metadata = {
 
   // Open Graph
   openGraph: {
-    title: 'Fact Checker Tool',
-    description: 'Fact Check Your Blogs & Articles Instantly for Free.',
-    url: 'https://factchecker-exa.vercel.app',
+    title: 'Hallucinations Detector Tool',
+    description: 'Detect Hallucinations in Your Blogs & Articles Instantly for Free.',
+    url: 'https://exa-hallucination-checker.vercel.app/',
     siteName: 'Fact Checker Tool',
     images: [
       {
         url: '/opengraph-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Fact Checker Tool',
+        alt: 'Hallucinations Detector Tool',
       },
     ],
     locale: 'en_US',
@@ -54,9 +54,9 @@ export const metadata: Metadata = {
   // Twitter
   twitter: {
     card: 'summary_large_image',
-    title: 'Fact Checker Tool',
-    description: 'Fact Check Your Blogs & Articles Instantly for Free.',
-    images: ['https://factchecker-exa.vercel.app/opengraph-image.jpg'],
+    title: 'Hallucinations Detector Tool',
+    description: 'Detect Hallucinations in Your Blogs & Articles Instantly for Free.',
+    images: ['https://exa-hallucination-checker.vercel.app/opengraph-image.jpg'],
   },
 };
 
