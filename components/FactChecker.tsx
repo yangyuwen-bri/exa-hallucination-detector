@@ -220,9 +220,9 @@ export default function FactChecker() {
 
           <button
             type="submit"
-            className={`w-full bg-brand-default text-white font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:1200ms] min-h-[50px] ring-2 ring-brand-default ${
-              isGenerating ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+            className={`w-full text-white mb-10 font-semibold px-2 py-2 rounded-none transition-opacity opacity-0 animate-fade-up [animation-delay:1200ms] min-h-[50px] ${
+              isGenerating ? 'bg-gray-400' : 'bg-brand-default ring-2 ring-brand-default'
+            } transition-colors`}
             disabled={isGenerating}
           >
             {isGenerating ? 'Fact Checking...' : 'Fact Check Now'}
@@ -286,7 +286,7 @@ export default function FactChecker() {
               target="_blank"
               className="underline cursor-pointer"
             >
-              This is an open source project - clone it here.
+              This is an open source project - clone it here
             </Link>
           </p>
         </div>
