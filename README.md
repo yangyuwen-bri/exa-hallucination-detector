@@ -116,4 +116,4 @@ This project is powered by [Exa.ai](https://exa.ai), a cutting-edge search engin
 * * *
 
 
-Built with ❤️ by Ishan Goswami - My [Twitter/X](https://x.com/TheIshanGoswami) and [Github](https://github.com/theishangoswami)
+Built with ❤️ by team Exa
