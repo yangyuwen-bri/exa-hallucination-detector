@@ -286,7 +286,7 @@ export default function FactChecker() {
         <div className="max-w-md mx-auto">
           <p className="text-md text-center text-gray-600">
             <Link 
-              href="https://github.com/theishangoswami/factchecker" 
+              href="https://github.com/exa-labs/exa-hallucination-detector" 
               target="_blank"
               className="underline cursor-pointer"
             >
