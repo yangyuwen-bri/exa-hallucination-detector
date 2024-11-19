@@ -5,7 +5,7 @@ import { Twitter, Linkedin, Users } from 'lucide-react';
 export default function ShareButtons() {
     const [copyMessage, setCopyMessage] = useState('');
     const toolUrl = 'https://factchecker-exa.vercel.app/';
-    const shareText = `Just saw this AI tool which can fact-check your blogs or articles, seems cool \n\n${toolUrl}`;
+    const shareText = `Just saw this AI tool which can detect hallucinations in your blogs and articles, seems cool \n\n${toolUrl}`;
 
     const shareOnTwitter = () => {
         const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
@@ -30,7 +30,7 @@ export default function ShareButtons() {
     return (
         <div className="my-12 pt-12 space-y-6 opacity-0 animate-fade-up">
             <h3 className="text-lg text-center text-black mb-6">
-                Share this Fact Checker tool Now!
+                Share this hallucinations checker tool now!
             </h3>
             <div className="flex flex-col sm:flex-row justify-center gap-8">
                 <button
