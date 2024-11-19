@@ -1,7 +1,6 @@
 // app/api/verifyclaims/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { anthropic } from "@ai-sdk/anthropic"
-// import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 
 // This function can run for a maximum of 60 seconds
@@ -22,7 +21,6 @@ export async function POST(req: NextRequest) {
 
     const { text } = await generateText({
       model: anthropic('claude-3-5-sonnet-20240620'),
-    //   model: openai('gpt-4o'),
       prompt: 
     `You are an expert fact-checker. Given a claim and a set of sources, determine whether the claim is true or false based on the text from sources (or if there is insufficient information).
     
