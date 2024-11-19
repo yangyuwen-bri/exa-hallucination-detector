@@ -23,7 +23,41 @@ const reckless = localFont({
 
 export const metadata: Metadata = {
   title: "Fact Checker Tool",
-  description: "Fact Check Your Blogs & Articles Instantly.",
+  description: "Fact Check Your Blogs & Articles Instantly for Free.",
+  metadataBase: new URL('https://factchecker-exa.vercel.app'),
+  
+  // Favicon
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
+
+  // Open Graph
+  openGraph: {
+    title: 'Fact Checker Tool',
+    description: 'Fact Check Your Blogs & Articles Instantly for Free.',
+    url: 'https://factchecker-exa.vercel.app',
+    siteName: 'Fact Checker Tool',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Fact Checker Tool',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+
+  // Twitter
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fact Checker Tool',
+    description: 'Fact Check Your Blogs & Articles Instantly for Free.',
+    images: ['https://factchecker-exa.vercel.app/opengraph-image.jpg'],
+  },
 };
 
 export default function RootLayout({
