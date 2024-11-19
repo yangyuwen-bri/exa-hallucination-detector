@@ -35,8 +35,8 @@ Fact Checker is a free and open-source tool that helps you verify the accuracy o
 
 ## 💻 Tech Stack
 - **Search Engine**: [Exa.ai](https://exa.ai) - Advanced web search API for AI applications
-- **Frontend**: [Next.js 14](https://nextjs.org/docs) with App Router, [TailwindCSS](https://tailwindcss.com), TypeScript
-- **LLM**: [Anthropic's Claude 3.5 Sonnet](https://www.anthropic.com/claude/sonnet) - but you can use any LLM model
+- **Frontend**: [Next.js](https://nextjs.org/docs) with App Router, [TailwindCSS](https://tailwindcss.com), TypeScript
+- **LLM**: [Anthropic's Claude 3.5 Sonnet](https://www.anthropic.com/claude/sonnet) - but you can use any LLM (ex: gpt, gemini, llama or others)
 - **AI Integration**: [Vercel AI SDK](https://sdk.vercel.ai/docs/ai-sdk-core)
 - **Hosting**: [Vercel](https://vercel.com/) for hosting and analytics
 
