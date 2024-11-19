@@ -2,7 +2,7 @@
 # 🔍 Fact Checker
 ### Powered by [Exa.ai](https://exa.ai) - The Search Engine for AIs
 
-![Screenshot](https://factchecker-exa.vercel.app/opengraph-image.jpg)
+![Screenshot](./app/opengraph-image.jpg)
 
 <br>
 
