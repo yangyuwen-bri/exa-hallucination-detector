@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# 🔍 Fact Checker
+### Powered by [Exa.ai](https://exa.ai) - The Search Engine for AIs
 
-First, run the development server:
+![Screenshot](https://factchecker-exa.vercel.app/opengraph-image.jpg)
 
+<br>
+
+## 🎯 What is Fact Checker?
+
+Fact Checker is a free and open-source tool that helps you verify the accuracy of your blogs and articles instantly. Think of it as Grammarly, but for factual accuracy instead of grammar. It analyzes your content, identifies potential inaccuracies, and suggests corrections backed by reliable web sources.
+
+<br>
+
+## ✨ Key Features
+
+- Real-time fact checking of articles and blog posts
+- Source-backed verification
+- Detailed explanations for identified inaccuracies
+- Suggestion-based corrections
+
+<br>
+
+## 🛠️ How It Works
+
+1. **Claim Extraction**: When you input your content, the tool uses an LLM (Claude 3.5 Sonnet) to break down your text into individual claims.
+
+2. **Source Verification**: Each claim is checked using Exa’s search tool to find reliable sources online that either support or refute it.
+
+3. **Accuracy Analysis**: The claims and their corresponding sources are analyzed by our LLM to determine their accuracy.
+
+4. **Results Display**: Finally, we show the results in a simple, clear way, pointing out any mistakes and offering suggestions to fix them.
+
+<br>
+
+## 💻 Tech Stack
+- **Search Engine**: [Exa.ai](https://exa.ai) - Advanced web search API for AI applications
+- **Frontend**: [Next.js 14](https://nextjs.org/docs) with App Router, [TailwindCSS](https://tailwindcss.com), TypeScript
+- **LLM**: [Anthropic's Claude 3.5 Sonnet](https://www.anthropic.com/claude/sonnet) - but you can use any LLM model
+- **AI Integration**: [Vercel AI SDK](https://sdk.vercel.ai/docs/ai-sdk-core)
+- **Hosting**: [Vercel](https://vercel.com/) for hosting and analytics
+
+<br>
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js
+- API keys for Exa.ai and Anthropic
+
+### Installation
+
+1. Clone the repository
 ```bash
+git clone https://github.com/theishangoswami/factchecker.git
+cd fact-checker
+````
+
+2.  Install dependencies
+    
+
+```
+npm install
+# or
+yarn install
+```
+
+3.  Set up environment variables Create a `.env.local` file in the root directory and add your API keys:
+    
+
+```
+EXA_API_KEY=your_exa_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+```
+
+4.  Run the development server
+    
+
+```
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5.  Open http://localhost:3000 in your browser
+    
+<br>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔑 API Keys
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+*   Get your Exa API key from [Exa Dashboard](https://dashboard.exa.ai/api-keys)
+    
+*   Get your Anthropic API key from [Anthropic Documentation](https://docs.anthropic.com/en/api/getting-started#accessing-the-api)
+    
+<br>
 
-## Learn More
+## ⭐ About [Exa.ai](http://Exa.ai)
 
-To learn more about Next.js, take a look at the following resources:
+This project is powered by [Exa.ai](https://exa.ai), a cutting-edge search engine designed specifically for AI applications. Exa provides:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*   Advanced semantic and keyword-based search capabilities
+    
+*   Instant retrieval of clean web content
+    
+*   Customizable search parameters
+    
+*   Similarity search using URLs or text
+    
+*   Superior search capabilities compared to traditional search APIs
+    
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[Try Exa search](https://exa.ai/search)
 
-## Deploy on Vercel
+<br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* * *
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+Built with ❤️ by Ishan Goswami - My [Twitter/X](https://x.com/TheIshanGoswami) and [Github](https://github.com/theishangoswami)
