@@ -280,14 +280,13 @@ export default function FactChecker() {
   
       <footer className="w-full py-6 px-8 mb-6 mt-auto opacity-0 animate-fade-up [animation-delay:1400ms]">
         <div className="max-w-md mx-auto">
-          <p className="text-sm text-center text-gray-600">
-            This is an open source project built on {" "}
+          <p className="text-md text-center text-gray-600">
             <Link 
-              href="https://exa.ai" 
+              href="https://github.com/theishangoswami/factchecker" 
               target="_blank"
-              className="font-bold underline cursor-pointer"
+              className="underline cursor-pointer"
             >
-              Exa
+              This is an open source project - clone it here.
             </Link>
           </p>
         </div>
