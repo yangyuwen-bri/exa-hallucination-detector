@@ -188,9 +188,8 @@ export default function FactChecker() {
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-6xl md:max-w-4xl p-6">
         <div className="text-left">
           <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:400ms]">
-            Fact Check Your
+             Detect Hallucinations in Your
             <span className="text-brand-default"> Blogs & Articles </span>
-            Instantly
           </h1>
 
           <p className="text-gray-800 mb-12 opacity-0 animate-fade-up [animation-delay:600ms]">
@@ -226,7 +225,7 @@ export default function FactChecker() {
             } transition-colors`}
             disabled={isGenerating}
           >
-            {isGenerating ? 'Fact Checking...' : 'Fact Check Now'}
+            {isGenerating ? 'Detecting Hallucinations...' : 'Detect Hallucinations'}
           </button>
         </form>
 
