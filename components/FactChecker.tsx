@@ -188,12 +188,11 @@ export default function FactChecker() {
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-6xl md:max-w-4xl p-6">
         <div className="text-left">
           <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:400ms]">
-             Detect Hallucinations in Your
-            <span className="text-brand-default"> Blogs & Articles </span>
+             Detect LLM Hallucinations
           </h1>
 
           <p className="text-gray-800 mb-12 opacity-0 animate-fade-up [animation-delay:600ms]">
-            Verify your content with real web data. Publish with confidence.
+            Verify your content with real web data.
           </p>
         </div>
     
@@ -202,7 +201,7 @@ export default function FactChecker() {
             ref={textareaRef}
             value={articleContent}
             onChange={(e) => setArticleContent(e.target.value)}
-            placeholder="Enter Your Blog or Article Content"
+            placeholder="Enter Your Content"
             className="w-full bg-white p-3 border box-border outline-none rounded-none ring-2 ring-brand-default resize-none min-h-[150px] max-h-[250px] overflow-auto opacity-0 animate-fade-up [animation-delay:800ms] transition-[height] duration-200 ease-in-out"
           />
 
@@ -214,7 +213,7 @@ export default function FactChecker() {
                 isGenerating ? 'cursor-not-allowed' : ''
               }`}
             >
-              Try with a sample blog
+              Try with a sample blog post
             </button>
           </div>
 
