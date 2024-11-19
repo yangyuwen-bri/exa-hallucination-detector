@@ -7,6 +7,7 @@ import LoadingMessages from "./ui/LoadingMessages";
 import PreviewBox from "./PreviewBox";
 import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
 import AnimatedGradientText from "./ui/animated-gradient-text";
+import ShareButtons from "./ui/ShareButtons";
 
 interface Claim {
     claim: string;
@@ -241,6 +242,9 @@ export default function FactChecker() {
           </div>
         )}
 
+
+       
+
         {factCheckResults.length > 0 && (
         <div className="space-y-14 mt-5 mb-32">
             <PreviewBox
@@ -272,6 +276,7 @@ export default function FactChecker() {
                 </div>
                 )}
             </div>
+            <ShareButtons />
         </div>
         )}
 
