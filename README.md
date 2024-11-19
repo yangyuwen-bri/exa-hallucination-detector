@@ -1,14 +1,14 @@
 
-# 🔍 Hallucinations Checker
+# 🔍 Hallucinations Detector
 ### Powered by [Exa.ai](https://exa.ai) - The Search Engine for AIs
 
 ![Screenshot](./public/opengraph-image.jpg)
 
 <br>
 
-## 🎯 What is Hallucinations Checker?
+## 🎯 What is Hallucinations Detector?
 
-Hallucinations Checker is a free and open-source tool that helps you verify the accuracy of your blogs and articles instantly. Think of it as Grammarly, but for factual accuracy instead of grammar. It analyzes your content, identifies potential inaccuracies, and suggests corrections backed by reliable web sources.
+Hallucinations Detector is a free and open-source tool that helps you verify the accuracy of your blogs and articles instantly. Think of it as Grammarly, but for factual accuracy instead of grammar. It analyzes your content, identifies potential inaccuracies, and suggests corrections backed by reliable web sources.
 
 <br>
 
@@ -52,8 +52,8 @@ Hallucinations Checker is a free and open-source tool that helps you verify the 
 
 1. Clone the repository
 ```bash
-git clone https://github.com/exa-labs/exa-hallucination-checker.git
-cd exa-hallucination-checker
+git clone https://github.com/exa-labs/exa-hallucination-detector.git
+cd exa-hallucination-detector
 ````
 
 2.  Install dependencies
