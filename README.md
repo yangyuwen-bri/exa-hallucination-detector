@@ -8,13 +8,13 @@
 
 ## 🎯 What is Hallucinations Detector?
 
-Hallucinations Detector is a free and open-source tool that helps you verify the accuracy of your blogs and articles instantly. Think of it as Grammarly, but for factual accuracy instead of grammar. It analyzes your content, identifies potential inaccuracies, and suggests corrections backed by reliable web sources.
+Hallucinations Detector is a free and open-source tool that helps you verify the accuracy of your content instantly. Think of it as Grammarly, but for factual accuracy instead of grammar. It analyzes your content, identifies potential inaccuracies, and suggests corrections backed by reliable web sources.
 
 <br>
 
 ## ✨ Key Features
 
-- Real-time fact checking of articles and blog posts
+- Real-time fact checking of your LLM generated content
 - Source-backed verification
 - Detailed explanations for identified inaccuracies
 - Suggestion-based corrections
