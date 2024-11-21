@@ -23,7 +23,7 @@ const reckless = localFont({
 
 export const metadata: Metadata = {
   title: 'Hallucinations Detector Tool',
-  description: 'Detect Hallucinations in Your Blogs & Articles Instantly for Free.',
+  description: 'Detect Hallucinations in Your Content Instantly for Free.',
   metadataBase: new URL('https://demo.exa.ai/hallucination-detector'),
   
   // Favicon
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   // Open Graph
   openGraph: {
     title: 'Hallucinations Detector Tool',
-    description: 'Detect Hallucinations in Your Blogs & Articles Instantly for Free.',
+    description: 'Detect Hallucinations in Your Content Instantly for Free.',
     url: 'https://demo.exa.ai/hallucination-detector',
     siteName: 'Fact Checker Tool',
     images: [
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Hallucinations Detector Tool',
-    description: 'Detect Hallucinations in Your Blogs & Articles Instantly for Free.',
+    description: 'Detect Hallucinations in Your Content Instantly for Free.',
     images: ['https://demo.exa.ai/hallucination-detector/opengraph-image.jpg'],
   },
 };
