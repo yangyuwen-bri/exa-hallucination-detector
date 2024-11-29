@@ -1,14 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 //remove the below NextConfig when deploying
-const nextConfig = {
-    basePath: "/hallucination-detector",
-    experimental: {
-      serverActions: {
-        allowedOrigins: ["demo.exa.ai"],
-        allowedForwardedHosts: ["demo.exa.ai"],
-      },
-    },
-  };
+const nextConfig = {}
   
-  export default nextConfig;
+export default nextConfig;
