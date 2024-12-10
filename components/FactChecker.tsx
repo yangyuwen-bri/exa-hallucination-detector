@@ -19,7 +19,6 @@ type FactCheckResponse = {
   claim: string;
   assessment: "True" | "False" | "Insufficient Information";
   summary: string;
-  url_sources: string[];
   fixed_original_text: string;
   confidence_score: number;
 };
@@ -99,7 +98,7 @@ export default function FactChecker() {
     }
 
     const data = await response.json();
-    return data.results;
+    return data;
   };
 
   // Verify claims function
@@ -147,8 +146,12 @@ export default function FactChecker() {
         claims.map(async ({ claim, original_text }: Claim) => {
           try {
             const exaSources = await exaSearch(claim);
-            const verifiedClaim = await verifyClaim(claim, original_text, exaSources);
-            return { ...verifiedClaim, original_text };
+            const sourceUrls = exaSources?.results?.map((result: { url: any; }) => result.url) || [];
+            console.log('Source URLs:', sourceUrls);
+            
+            const verifiedClaim = await verifyClaim(claim, original_text, exaSources.results);
+
+            return { ...verifiedClaim, original_text, url_sources: sourceUrls };
           } catch (error) {
             console.error(`Failed to verify claim: ${claim}`, error);
             return null;

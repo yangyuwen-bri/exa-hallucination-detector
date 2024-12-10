@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
       claim: z.string(),
       assessment: z.enum(["True", "False", "Insufficient Information"]),
       summary: z.string(),
-      url_sources: z.array(z.string()),
       fixed_original_text: z.string(),
       confidence_score: z.number().min(0).max(100)
     });
@@ -31,7 +30,7 @@ export async function POST(req: NextRequest) {
     
       For your analysis, consider all the sources collectively.
 
-      Here are the sources (with exact URLs and text content): ${exasources}
+      Here are the sources: ${exasources}
 
       Here is the Original part of the text: ${original_text}
 
@@ -42,7 +41,6 @@ export async function POST(req: NextRequest) {
       claim: "...",
       assessment: "True" or "False" or "Insufficient Information",
       summary: "Why is this claim correct and if it isn't correct, then what's correct. In a single line.",
-      url_sources: [list of sources urls from the above sources, don't give source urls from your own],
       fixed_original_text: "If the assessment is False then correct the original text (keeping everything as it is and just fix the fact in the part of the text)",
       confidence_score: a percentage number between 0 and 100 (100 means fully confident that the decision you have made is correct, 0 means you are completely unsure),
       
