@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: 'Hallucinations Detector Tool',
     description: 'Detect Hallucinations in Your Content Instantly for Free.',
     url: 'https://demo.exa.ai/hallucination-detector',
-    siteName: 'Fact Checker Tool',
+    siteName: 'Hallucinations Detector Tool',
     images: [
       {
         url: '/opengraph-image.jpg',
