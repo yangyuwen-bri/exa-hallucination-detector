@@ -146,11 +146,15 @@ export default function FactChecker() {
         claims.map(async ({ claim, original_text }: Claim) => {
           try {
             const exaSources = await exaSearch(claim);
-            const sourceUrls = exaSources?.results?.map((result: { url: any; }) => result.url) || [];
-            console.log('Source URLs:', sourceUrls);
+            
+            if (!exaSources?.results?.length) {
+              return null;
+            }
+    
+            const sourceUrls = exaSources.results.map((result: { url: any; }) => result.url);
             
             const verifiedClaim = await verifyClaim(claim, original_text, exaSources.results);
-
+    
             return { ...verifiedClaim, original_text, url_sources: sourceUrls };
           } catch (error) {
             console.error(`Failed to verify claim: ${claim}`, error);
