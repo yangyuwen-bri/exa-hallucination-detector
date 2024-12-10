@@ -5,7 +5,7 @@ import { Twitter, Linkedin, Users } from 'lucide-react';
 export default function ShareButtons() {
     const [copyMessage, setCopyMessage] = useState('');
     const toolUrl = 'https://demo.exa.ai/hallucination-detector';
-    const shareText = `Just saw this AI tool which can detect hallucinations in your blogs and articles, seems cool \n\n${toolUrl}`;
+    const shareText = `Just saw this AI tool which can detect hallucinations in your content, seems cool \n\n${toolUrl}`;
 
     const shareOnTwitter = () => {
         const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
