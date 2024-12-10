@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-//remove the below NextConfig when deploying
 const nextConfig = {
     basePath: "/hallucination-detector",
     experimental: {
