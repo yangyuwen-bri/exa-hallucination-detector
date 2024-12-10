@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       `Query: ${claim} \nHere is a web page to help verify this claim:`,
       {
         type: "auto",
-        numResults: 5,
+        numResults: 3,
         livecrawl: 'always',
         text: true,
       }
@@ -24,8 +24,8 @@ export async function POST(req: NextRequest) {
 
     // Extract only url and text from each result
     const simplifiedResults = result.results.map((item: any) => ({
-      url: item.url,
-      text: item.text
+      text: item.text,
+      url: item.url
     }));
 
     return NextResponse.json({ results: simplifiedResults });

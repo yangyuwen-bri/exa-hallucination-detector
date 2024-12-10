@@ -15,6 +15,15 @@ interface Claim {
     original_text: string;
 }
 
+type FactCheckResponse = {
+  claim: string;
+  assessment: "True" | "False" | "Insufficient Information";
+  summary: string;
+  url_sources: string[];
+  fixed_original_text: string;
+  confidence_score: number;
+};
+
 export default function FactChecker() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [factCheckResults, setFactCheckResults] = useState<any[]>([]);
@@ -102,21 +111,16 @@ export default function FactChecker() {
       },
       body: JSON.stringify({ claim, original_text, exasources }),
     });
-  
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to verify claim.');
     }
-  
+
     const data = await response.json();
-    console.log("VerifyClaim raw response:", data.claims);
-  
-    const rawText = data.claims.replace(/```json\n|```/g, '');
-    const parsedData = JSON.parse(rawText);
-  
-    console.log("Parsed verifyClaim response:", parsedData);
-  
-    return parsedData;
+    console.log("VerifyClaim response:", data.claims);
+
+    return data.claims as FactCheckResponse;
   };
    
   // Fact check function
@@ -193,8 +197,8 @@ export default function FactChecker() {
       <main className="flex flex-col items-center justify-center flex-grow w-full max-w-6xl md:max-w-4xl p-6">
         <div className="text-left">
           <h1 className="md:text-6xl text-4xl pb-5 font-medium opacity-0 animate-fade-up [animation-delay:400ms]">
-             Detect LLM 
-             <span className="text-brand-default"> Hallucinations </span>
+            Detect LLM 
+            <span className="text-brand-default"> Hallucinations </span>
           </h1>
 
           <p className="text-gray-800 mb-12 opacity-0 animate-fade-up [animation-delay:600ms]">
