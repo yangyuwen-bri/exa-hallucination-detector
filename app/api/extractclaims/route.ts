@@ -15,11 +15,14 @@ export async function POST(req: NextRequest) {
 
     // Run the prompt to extract claims along with original text parts
     const { text } = await generateText({
-      model: anthropic('claude-3-5-sonnet-20240620'),
+      model: anthropic('claude-3-5-sonnet-20241022'),
       prompt: 
       `You are an expert at extracting claims from text.
-      Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a single, verifiable statement.
+      Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a verifiable statement.
+      
       If the input content is very lengthy, then pick the major claims.
+
+      Don't repeat the same claim.
 
       For each claim, also provide the original part of the sentence from which the claim is derived.
       Present the claims as a JSON array of objects. Each object should have two keys:

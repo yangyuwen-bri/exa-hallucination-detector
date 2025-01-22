@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
     // Use Exa to search for content related to the claim
     const result = await exa.searchAndContents(
-      `Query: ${claim} \nHere is a web page to help verify this claim:`,
+      `${claim} \n\nHere is a web page to help verify this content:`,
       {
         type: "auto",
         numResults: 3,
@@ -22,11 +22,11 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    // Extract only url and text from each result
+    // Extract only url and text from each result and reverse the order
     const simplifiedResults = result.results.map((item: any) => ({
       text: item.text,
       url: item.url
-    }));
+    })).reverse();
 
     return NextResponse.json({ results: simplifiedResults });
   } catch (error) {

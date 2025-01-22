@@ -23,14 +23,18 @@ export async function POST(req: NextRequest) {
     });
 
     const { object } = await generateObject({
-      model: anthropic('claude-3-5-sonnet-20240620'),
+      model: anthropic('claude-3-5-sonnet-20241022'),
       schema: factCheckSchema,
       output: 'object',
       prompt: `You are an expert fact-checker. Given a claim and a set of sources, determine whether the claim is true or false based on the text from sources (or if there is insufficient information).
     
       For your analysis, consider all the sources collectively.
 
-      Here are the sources: ${exasources}
+      Here are the sources:
+      ${exasources.map((source: any, index: number) => `Source ${index + 1}:
+      Text: ${source.text}
+      URL: ${source.url}
+      `).join('\n')}
 
       Here is the Original part of the text: ${original_text}
 
