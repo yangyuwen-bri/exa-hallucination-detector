@@ -304,9 +304,25 @@ export default function FactChecker() {
             <Link 
               href="https://github.com/exa-labs/exa-hallucination-detector" 
               target="_blank"
-              className="underline cursor-pointer"
+              className="underline cursor-pointer hover:text-gray-800"
             >
-              This is an open source project - clone it here
+              Project Code
+            </Link>
+            <span className="mx-3">|</span>
+            <Link 
+              href="https://exa.ai/demos" 
+              target="_blank"
+              className="underline cursor-pointer hover:text-gray-800"
+            >
+              See More Demo Apps
+            </Link>
+            <span className="mx-3">|</span>
+            <Link 
+              href="https://dashboard.exa.ai" 
+              target="_blank"
+              className="underline cursor-pointer hover:text-gray-800"
+            >
+              Try Exa API
             </Link>
           </p>
         </div>
