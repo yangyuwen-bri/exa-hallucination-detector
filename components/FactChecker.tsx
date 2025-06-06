@@ -302,6 +302,14 @@ export default function FactChecker() {
         <div className="max-w-md mx-auto">
           <p className="text-md text-center text-gray-600">
             <Link 
+              href="https://dashboard.exa.ai" 
+              target="_blank"
+              className="underline cursor-pointer hover:text-gray-800"
+            >
+              Try Exa API
+            </Link>
+            <span className="mx-3">|</span>
+            <Link 
               href="https://github.com/exa-labs/exa-hallucination-detector" 
               target="_blank"
               className="underline cursor-pointer hover:text-gray-800"
@@ -318,11 +326,11 @@ export default function FactChecker() {
             </Link>
             <span className="mx-3">|</span>
             <Link 
-              href="https://dashboard.exa.ai" 
+              href="https://docs.exa.ai/examples/demo-hallucination-detector" 
               target="_blank"
               className="underline cursor-pointer hover:text-gray-800"
             >
-              Try Exa API
+              Tutorial
             </Link>
           </p>
         </div>
