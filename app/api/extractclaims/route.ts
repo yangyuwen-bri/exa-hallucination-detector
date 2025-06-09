@@ -1,9 +1,9 @@
-// app/api/extractclaims/route.ts (增强容错版)
+// app/api/extractclaims/route.ts (最终完美版)
 import { NextRequest, NextResponse } from 'next/server';
 import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
+import { z } from 'zod';
 
-// This function can run for a maximum of 60 seconds
 export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
@@ -13,8 +13,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Content is required' }, { status: 400 });
     }
 
-    const { text } = await generateText({
+    // 1. 使用带有详细描述的 Zod Schema
+    const claimsSchema = z.object({
+      claims: z.array(z.object({
+        claim: z.string().describe("The extracted verifiable statement."),
+        original_text: z.string().describe("The portion of the original text that contains the claim."),
+      })).describe("An array of all claims extracted from the text."),
+    });
+
+    // 2. 使用 generateObject 保证输出可靠性
+    const { object } = await generateObject({
       model: anthropic('claude-3-5-sonnet-20241022'),
+      schema: claimsSchema, 
+      // 3. 使用原始的、详细的英文 Prompt 来保证任务质量
       prompt: 
       `You are an expert at extracting claims from text.
       Your task is to identify and list all claims present, true or false, in the given text. Each claim should be a verifiable statement.
@@ -23,73 +34,16 @@ export async function POST(req: NextRequest) {
       Don't repeat the same claim.
 
       For each claim, also provide the original part of the sentence from which the claim is derived.
-      Present the claims as a JSON array of objects. Each object should have two keys:
-      - "claim": the extracted claim in a single verifiable statement.
-      - "original_text": the portion of the original text that supports or contains the claim.
+      Present the claims as a JSON object that strictly follows the provided schema.
       
-      Do not include any additional text or commentary.
-
       Here is the content: ${content}
-
-      Return the output strictly as a JSON array of objects following this schema:
-      [
-        {
-          "claim": "extracted claim here",
-          "original_text": "original text portion here"
-        },
-        ...
-      ]
-
-      Output the result as valid JSON, strictly adhering to the defined schema. Ensure there are no markdown codes or additional elements included in the output. Do not add anything else. Return only JSON.
       `,
     });
 
-    // --- 新增的、更健壮的解析逻辑 ---
-    let parsedData;
-    try {
-      parsedData = JSON.parse(text);
-    } catch (e) {
-      // 如果直接解析失败，说明 LLM 可能返回了不标准的 JSON 或其他文本
-      console.error("Failed to parse LLM output directly:", text);
-      throw new Error(`Failed to parse LLM output as JSON. Raw text: ${text}`);
-    }
-
-    let claimsArray;
-
-    // 检查解析后的数据是否是 { claims: ... } 的结构
-    if (parsedData && typeof parsedData === 'object' && !Array.isArray(parsedData) && 'claims' in parsedData) {
-      const claimsValue = parsedData.claims;
-      
-      if (Array.isArray(claimsValue)) {
-        // 情况1: claims 的值已经是数组 (最理想情况)
-        claimsArray = claimsValue;
-      } else if (typeof claimsValue === 'string') {
-        // 情况2: claims 的值是一个字符串，需要再次解析
-        try {
-          claimsArray = JSON.parse(claimsValue);
-        } catch (e) {
-          throw new Error(`The 'claims' property was a string but could not be parsed into an array. String value: ${claimsValue}`);
-        }
-      } else {
-        throw new Error("The 'claims' property is not in a recognized format (array or parsable string).");
-      }
-    } else if (Array.isArray(parsedData)) {
-      // 情况3: LLM 直接返回了数组，而不是包含 claims 键的对象
-      claimsArray = parsedData;
-    } else {
-      throw new Error("LLM output was not in the expected format (object with a 'claims' property or an array).");
-    }
-    
-    // 最终确保我们得到的是一个数组
-    if (!Array.isArray(claimsArray)) {
-      throw new Error(`Final processed data is not an array. Original LLM output: ${text}`);
-    }
-
-    // 始终以 { claims: [...] } 的格式返回给前端
-    return NextResponse.json({ claims: claimsArray });
+    return NextResponse.json(object); 
 
   } catch (error) {
-    // 保持外层错误捕获不变
+    console.error('Extract claims API error:', error);
     return NextResponse.json({ error: `Failed to extract claims | ${error}` }, { status: 500 });
   }
 }
