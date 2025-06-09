@@ -142,28 +142,30 @@ export default function FactChecker() {
   
     try {
       const claims = await extractClaims(articleContent);
-      const finalResults = await Promise.all(
-        claims.map(async ({ claim, original_text }: Claim) => {
+      const finalResults = [];
+      for (const { claim, original_text } of claims) {
           try {
-            const exaSources = await exaSearch(claim);
-            
-            if (!exaSources?.results?.length) {
-              return null;
-            }
-    
-            const sourceUrls = exaSources.results.map((result: { url: any; }) => result.url);
-            
-            const verifiedClaim = await verifyClaim(claim, original_text, exaSources.results);
-    
-            return { ...verifiedClaim, original_text, url_sources: sourceUrls };
+              const exaSources = await exaSearch(claim);
+              
+              if (!exaSources?.results?.length) {
+                  continue; // 如果没有找到信源，直接跳过此条声明
+              }
+
+              const sourceUrls = exaSources.results.map((result: { url: any; }) => result.url);
+
+              const verifiedClaim = await verifyClaim(claim, original_text, exaSources.results);
+
+              finalResults.push({ ...verifiedClaim, original_text, url_sources: sourceUrls });
+
+              // 在每次成功验证后都更新一次状态，这样用户可以实时看到结果出现
+              setFactCheckResults([...finalResults].filter(result => result !== null));
+
           } catch (error) {
-            console.error(`Failed to verify claim: ${claim}`, error);
-            return null;
+              console.error(`Failed to verify claim: ${claim}`, error);
+              // 可以在这里设置一个状态来向用户显示某条声明处理失败
           }
-        })
-      );
+      }
   
-      setFactCheckResults(finalResults.filter(result => result !== null));
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
       setFactCheckResults([]);
