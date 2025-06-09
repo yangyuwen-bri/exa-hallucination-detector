@@ -200,8 +200,12 @@ export default function FactChecker() {
           <div className="space-y-14 mt-5 mb-32">
               {/* PreviewBox 可能也需要修改以处理不同状态的 claims */}
               <PreviewBox
-                content={articleContent}
-                claims={processedClaims.map(p => ({...p.result, ...p}))} // 简单的适配，可能需要更精细的处理
+                  content={articleContent}
+                  claims={
+                      processedClaims
+                         .filter(p => p.status === 'success' && p.result) // 1. 只筛选出成功的声明
+                         .map(p => p.result!) // 2. 只将成功的 result 部分传递过去
+                  }
               />
               <div className="mt-4 pt-12 opacity-0 animate-fade-up [animation-delay:800ms]">
                   <button
