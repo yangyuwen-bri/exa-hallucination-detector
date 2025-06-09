@@ -204,7 +204,10 @@ export default function FactChecker() {
                   claims={
                       processedClaims
                          .filter(p => p.status === 'success' && p.result) // 1. 只筛选出成功的声明
-                         .map(p => p.result!) // 2. 只将成功的 result 部分传递过去
+                               .map(p => ({
+                                   ...p.result!, // 展开所有 result 内部的属性
+                                   original_text: p.original_text // 手动将 original_text 添加回来
+                                   }))
                   }
               />
               <div className="mt-4 pt-12 opacity-0 animate-fade-up [animation-delay:800ms]">
