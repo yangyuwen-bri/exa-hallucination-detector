@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       {
         type: "auto",
         numResults: 3,
-        livecrawl: 'always',
+        // livecrawl: 'always', 不启用实时搜索，提高搜索结果稳定性
         text: true,
       }
     );
