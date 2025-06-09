@@ -9,6 +9,7 @@ interface ClaimsListResultsProps {
 const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
   
   const getStatusBadge = (assessment: string) => {
+    // 这部分逻辑本身没问题
     const isTrue = assessment.toLowerCase().includes('true');
     return (
       <span 
@@ -47,10 +48,12 @@ const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
           
           {item.status === 'success' && item.result && (
             <>
-              {/* 这里是之前展示成功结果的逻辑 */}
-              {item.result.assessment.toLowerCase() !== 'insufficient information' ? (
+              {/* --- 这里是修改的关键 --- */}
+              {/* 在使用 assessment 之前，先检查它是否存在 */}
+              {item.result.assessment && item.result.assessment.toLowerCase() !== 'insufficient information' ? (
                 <>
                   <div className="flex items-center space-x-3">
+                    {/* 同样增加检查 */}
                     {getStatusBadge(item.result.assessment)}
                     <span className="text-gray-600 text-sm">
                       {item.result.confidence_score}% Confident
