@@ -1,7 +1,7 @@
 // app/api/extractclaims/route.ts (终极防御版)
 import { NextRequest, NextResponse } from 'next/server';
 import { anthropic } from "@ai-sdk/anthropic";
-import { generateObject, AI_TypeValidationError } from 'ai'; // 引入 AI_TypeValidationError
+import { generateObject, TypeValidationError } from 'ai'; // 引入 AI_TypeValidationError
 import { z } from 'zod';
 
 export const maxDuration = 60;
