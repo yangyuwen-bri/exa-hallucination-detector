@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       `${claim} \n\nHere is a web page to help verify this content:`,
       {
         type: "auto",
-        numResults: 3,
+        numResults: 10,
         // livecrawl: 'always', 不启用实时搜索，提高搜索结果稳定性
         text: true,
       }
