@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     try {
       // 1. 正常尝试使用 generateObject
       const result = await generateObject({
-        model: anthropic('claude-3-7-sonnet-20250219'),
+        model: anthropic('claude-3-5-haiku-20241022'),
         schema: claimsSchema, 
         prompt: 
         `You are an expert at extracting claims from text.
